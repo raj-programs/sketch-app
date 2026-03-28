@@ -6,7 +6,6 @@ import "react-color-palette/css";
 import "./canvas.css";
 import Toolbar from "./toolbar";
 import pen from "../assets/pen.png"
-import eraser from "../assets/eraser.png"
 function DrawCanvas(){
 
     const {
@@ -28,7 +27,6 @@ function DrawCanvas(){
 
     useEffect(() => {
         const cursor = tool === "pen" ? `url("${pen}") 0 16, auto` :
-                       tool === "eraser" ? `url("${eraser}") 8 8, auto` :
                        "default";
         document.body.style.cursor = cursor;
     }, [tool]);
