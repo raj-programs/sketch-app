@@ -1,16 +1,17 @@
-import { FaUndo, FaRedo, FaSave, FaEraser } from "react-icons/fa"
-import { MdDelete, MdFormatColorFill } from "react-icons/md"
+import { FaUndo, FaRedo, FaSave } from "react-icons/fa"
+import { MdDelete, MdFormatColorFill, MdBrightness7 } from "react-icons/md"
 
 function Toolbar({ onUndo, onRedo, onSave, onColor, onDelete }) {
     return (
         <>
-            <button onClick={onUndo} ><FaUndo /></button>
-            <button onClick={onRedo}><FaRedo /></button>
-            <button onClick={onSave}><FaSave /></button>
-            <button onClick={onColor}>
+            <button className="tool-buttons" onClick={onUndo} ><FaUndo /></button>
+            <button className="tool-buttons"onClick={onRedo}><FaRedo /></button>
+            <button className="tool-buttons" onClick={onSave}><FaSave /></button>
+            <button className="tool-buttons" onClick={onColor}>
                 <MdFormatColorFill />
                 </button>
-            <button onClick={onDelete}><MdDelete /></button>
+            <button className="tool-buttons" onClick={onDelete}><MdDelete /></button>
+            <button><MdBrightness7 /></button>
         </>
     )
 }

@@ -1,0 +1,18 @@
+.tool-buttons{
+  padding: 8px;
+  margin: 5px;
+  background-color: #6e747b;
+  color: whitesmoke;
+  border-radius: 25%;
+}
+
+.toolbar{
+  display: flex;
+  flex-direction: column;
+  width: 20px;
+  height: auto;
+  padding: 1px;
+  position: relative;
+  align-items: baseline;
+  
+}

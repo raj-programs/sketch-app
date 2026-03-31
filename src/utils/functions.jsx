@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ColorPicker, useColor } from "react-color-palette"
+import { useColor } from "react-color-palette"
 import "react-color-palette/css"
 
 
@@ -17,48 +17,48 @@ export function useCanvas() {
     const [color, setColor] = useColor("black")
 
     const redrawCanvas = () => {
+        const canvas = canvasref.current;
+        const ctx = ctxRef.current;
+
+        if (!canvas || !ctx) return;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+        finalpointsref.current.forEach(stroke => {
+            if (stroke.points.length === 0) return;
+            ctx.beginPath();
+            ctx.moveTo(stroke.points[0].x, stroke.points[0].y);
+
+            for (let i = 1; i < stroke.points.length; i++) {
+                ctx.lineTo(stroke.points[i].x, stroke.points[i].y);
+            }
+
+            ctx.strokeStyle = stroke.color;
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            ctx.closePath();
+        })
+    }
+
+    useEffect(() => {
+
+        const resize = () => {
             const canvas = canvasref.current;
-            const ctx = ctxRef.current;
+            const rect = canvas.getBoundingClientRect();
 
-            if(!canvas || !ctx) return;
-            
-            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            canvas.width = rect.width;
+            canvas.height = rect.height;
 
-            finalpointsref.current.forEach(stroke => {
-                if (stroke.points.length === 0) return;
-                ctx.beginPath();
-                ctx.moveTo(stroke.points[0].x, stroke.points[0].y);
+            ctxRef.current = canvas.getContext("2d");
+            canvasref.current.style.border = "2px red solid";
+            redrawCanvas();
+        };
 
-                for (let i = 1; i < stroke.points.length; i++) {
-                    ctx.lineTo(stroke.points[i].x, stroke.points[i].y);
-                }
+        resize();
 
-                ctx.strokeStyle = stroke.color;
-                ctx.lineWidth = 3;
-                ctx.stroke();
-                ctx.closePath();
-            })
-        }
-
-   useEffect(() => {
-
-   const resize = () => {
-    const canvas = canvasref.current;
-    const rect = canvas.parentElement.getBoundingClientRect();
-
-    canvas.width = rect.width;
-    canvas.height = rect.height;
-
-    ctxRef.current = canvas.getContext("2d");
-
-    redrawCanvas();
-};
-
-resize();
-
-    window.addEventListener("resize", resize);
-    return () => window.removeEventListener("resize", resize);
-}, []);
+        window.addEventListener("resize", resize);
+        return () => window.removeEventListener("resize", resize);
+    }, []);
 
     const startDrawing = (e) => {
         const c = ctxRef.current;
@@ -98,9 +98,8 @@ resize();
     const stopdrawing = () => {
         setDrawing(false);
 
-        if(pointsref.current.length > 0)
-            {
-        finalpointsref.current.push({ points: [...pointsref.current], color: color.hex });
+        if (pointsref.current.length > 0) {
+            finalpointsref.current.push({ points: [...pointsref.current], color: color.hex });
 
         }
 
@@ -130,7 +129,7 @@ resize();
 
     const handleSave = (filename = `drawing_${Date.now()}`) => {
         const canvas = canvasref.current;
-        if(!canvas) return;
+        if (!canvas) return;
 
         const tempCanvas = document.createElement("canvas");
         tempCanvas.height = canvas.height;
@@ -153,6 +152,7 @@ resize();
 
     const handleColorPicker = () => {
         setColorPicker(prev => !prev)
+        
     }
 
     const handleDelete = () => {
@@ -164,7 +164,7 @@ resize();
         const canvas = canvasref.current;
         const ctx = ctxRef.current;
 
-        if(canvas && ctx){
+        if (canvas && ctx) {
             ctx.clearRect(0, 0, canvas.width, canvas.height)
         }
     }
@@ -185,4 +185,3 @@ resize();
     };
 
 }
-
