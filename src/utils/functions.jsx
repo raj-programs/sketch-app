@@ -50,7 +50,6 @@ export function useCanvas() {
             canvas.height = rect.height;
 
             ctxRef.current = canvas.getContext("2d");
-            canvasref.current.style.border = "2px red solid";
             redrawCanvas();
         };
 
@@ -152,7 +151,6 @@ export function useCanvas() {
 
     const handleColorPicker = () => {
         setColorPicker(prev => !prev)
-        console.log("Running properly");
     }
 
     const handleDelete = () => {
