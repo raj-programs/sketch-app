@@ -152,7 +152,7 @@ export function useCanvas() {
 
     const handleColorPicker = () => {
         setColorPicker(prev => !prev)
-        
+        console.log("Running properly");
     }
 
     const handleDelete = () => {

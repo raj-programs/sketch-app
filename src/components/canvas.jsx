@@ -52,8 +52,10 @@ function DrawCanvas(){
             onMouseUp={stopdrawing}
             onMouseLeave={stopdrawing}
         />
+        </div>
+        <div className="color-container">
         {colorPicker && (
-            <ColorPicker color={color} onChange={setColor}/>
+            <ColorPicker color={color} onChange={setColor} className="color-picker" />
         )}
         </div>
         </div>
