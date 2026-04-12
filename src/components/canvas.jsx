@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useCanvas } from "../utils/functions";
+import { useCanvas } from "../hooks/useCanvas";
 import { useTool } from "../hooks/useTool";
 import { ColorPicker } from "react-color-palette";
 import "react-color-palette/css";
