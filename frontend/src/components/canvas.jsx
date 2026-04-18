@@ -15,7 +15,7 @@ function DrawCanvas(){
         draw,
         handleUndo,
         handleRedo,
-        handleSave,
+        handleDownload,
         handleColorPicker,
         colorPicker,
         color,
@@ -38,7 +38,7 @@ function DrawCanvas(){
                 <Toolbar 
                 onUndo={handleUndo} 
                 onRedo={handleRedo}
-                onSave={handleSave}
+                onSave={handleDownload}
                 setTool={setTool}
                 onColor={handleColorPicker}
                 onDelete={handleDelete}/>

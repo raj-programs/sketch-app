@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { useColor } from "react-color-palette";
 import "react-color-palette/css";
 
-import { drawShape } from "../utils/drawUtils";
-import detectShape from "../utils/detectionUtils";
+import { drawShape } from "../utils/drawingUtil/drawUtils";
+import detectShape from "../utils/detectionUtils/detectionUtils";
 
 export function useCanvas() {
 
@@ -99,13 +99,14 @@ export function useCanvas() {
         };
 
         const detectedShape = detectShape(stroke);
-
         shapeRef.current.push(
-            detectedShape || { type: "freehand", ...stroke }
+            detectedShape || { type: "freehand", points: stroke.points, color: color.hex }
         );
 
         pointsref.current = [];
         ctxRef.current.beginPath();
+
+
 
         redrawCanvas();
     };
@@ -128,7 +129,7 @@ export function useCanvas() {
         redrawCanvas();
     };
 
-    const handleSave = (filename = `drawing_${Date.now()}`) => {
+    const handleDownload = (filename = `drawing_${Date.now()}`) => {
         const canvas = canvasref.current;
         if (!canvas) return;
 
@@ -171,6 +172,10 @@ export function useCanvas() {
         setColorPicker(prev => !prev);
     };
 
+    const newFile = () => {
+
+    }
+
     return {
         canvasref,
         startDrawing,
@@ -178,7 +183,7 @@ export function useCanvas() {
         stopdrawing,
         handleUndo,
         handleRedo,
-        handleSave,
+        handleDownload,
         handleDelete,
         handleColorPicker,
         colorPicker,
