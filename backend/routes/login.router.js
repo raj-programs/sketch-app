@@ -3,12 +3,14 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
 import user from "../models/user.model.js";
+import AppError from "../utils/appError.js";
+import successResponse from "../utils/successResponse.js";
 
 dotenv.config();
 
 const loginRouter = express.Router();
 
-loginRouter.post("/login", async (req, res) => {
+loginRouter.post("/login", async (req, res, next) => {
     const { email, password } = req.body;
 
     const existing = await user.findOne({
@@ -16,17 +18,14 @@ loginRouter.post("/login", async (req, res) => {
     })
 
     if(!existing){
-        return res.status(400).json({
-            message: "Invalid Email"
-        })
+        throw new AppError("Invalid Email", 400)
+        
     }
 
     const match = await bcrypt.compare(password, existing.password)
 
     if(!match){
-        return res.status(400).json({
-            message: "Invalid password"
-        })
+        throw new AppError("Invalid Password", 400)
     }
 
     const token = jwt.sign(
@@ -35,9 +34,12 @@ loginRouter.post("/login", async (req, res) => {
         { expiresIn: "5d" }
     );
 
-    res.json({
-        token
-    })
+    return successResponse(
+        res, 
+        200,
+        `Welcome Back ${existing.userName}!!`,
+        { token }
+    )
 })
 
 export default loginRouter;

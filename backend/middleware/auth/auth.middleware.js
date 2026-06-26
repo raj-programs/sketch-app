@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
+import AppError from "../../utils/appError";
 
 dotenv.config()
 
@@ -7,9 +8,7 @@ const authMiddleware = (req, res, next) => {
     const header = req.headers.authorization;
 
     if(!header) {
-        return res.status(401).json({
-            message: "No token"
-        })
+        throw new AppError("No Token", 400)
     }
 
     const token = header.split(" ")[1];
@@ -19,9 +18,7 @@ const authMiddleware = (req, res, next) => {
         req.userId = decoded.userId
         next()
     } catch {
-        return res.status(401).json({
-            message: "Invalid Token"
-        })
+        throw new AppError("Invalid Token", 401)
     }
 }
 

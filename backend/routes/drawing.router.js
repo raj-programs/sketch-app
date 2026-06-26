@@ -1,13 +1,12 @@
 import express, { json } from "express"
 import authMiddleware from "../middleware/auth/auth.middleware.js";
-import cloudinary from "../config/cloudinary.config";
+import cloudinary from "../config/cloudinary.config.js";
 import drawings from "../models/drawings.model.js";
 
 const drawingRouter = express.Router();
 
 drawingRouter.post("/save",authMiddleware, async (req, res) => {
     const { shape, image } = req.body;
-
     let imageUrl = "";
     let publicID = "";
 

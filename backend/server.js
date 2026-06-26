@@ -5,6 +5,7 @@ import connectDB from "./config/db-connection.config.js"
 import Signuprouter from "./routes/signup.router.js"
 import loginRouter from "./routes/login.router.js"
 import drawingRouter from "./routes/drawing.router.js"
+import cloudinary from "./config/cloudinary.config.js"
 
 dotenv.config()
 
@@ -23,7 +24,8 @@ app.use("/api/auth", loginRouter)
 app.use("/api/save", drawingRouter)
 
 
-connectDB().then(
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
-}))
+connectDB().then(() => {
+    app.listen(port, () => {
+        console.log(`Server running on http://localhost:${port}`);
+    })
+})
