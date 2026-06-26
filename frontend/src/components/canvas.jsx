@@ -6,6 +6,7 @@ import "react-color-palette/css";
 import "./canvas.css";
 import Toolbar from "./toolbar";
 import pen from "../assets/pen.png"
+import Navbar from "./navbar";
 function DrawCanvas(){
 
     const {
@@ -33,6 +34,7 @@ function DrawCanvas(){
 
     return (
         <>
+        <Navbar />
         <div className="container">
             <div className="toolbar">
                 <Toolbar 

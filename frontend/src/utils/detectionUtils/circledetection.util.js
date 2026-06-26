@@ -18,7 +18,7 @@ const isCircle = (points) => {
     ) / distances.length;
 
     const stdev = Math.sqrt(variance);
-    const threshold = avgR * 0.5;
+    const threshold = avgR * 0.4;
 
     const first = points[0];
     const last = points[points.length - 1];
