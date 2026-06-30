@@ -7,6 +7,7 @@ import "./canvas.css";
 import Toolbar from "./toolbar";
 import pen from "../assets/pen.png"
 import Navbar from "./navbar";
+import Login from "../pages/loginpage"
 function DrawCanvas(){
 
     const {
@@ -21,7 +22,11 @@ function DrawCanvas(){
         colorPicker,
         color,
         setColor,
-        handleDelete
+        handleDelete,
+        newFile,
+        handleSave,
+        showLogin,
+        setShowlogin,
     } = useCanvas();
 
     const [tool, setTool] = useTool();
@@ -43,7 +48,10 @@ function DrawCanvas(){
                 onSave={handleDownload}
                 setTool={setTool}
                 onColor={handleColorPicker}
-                onDelete={handleDelete}/>
+                onDelete={handleDelete}
+                onNew={newFile}
+                onSave={handleSave}
+                />
                 
             </div>
         <div className="canvas-wrapper">
@@ -59,6 +67,16 @@ function DrawCanvas(){
         {colorPicker && (
             <ColorPicker color={color} onChange={setColor} className="color-picker" />
         )}
+
+        {
+            showLogin && (
+                <Login 
+                onSuccess={
+                    () => setShowlogin(false)
+                }
+                />
+            )
+        }
         </div>
         </div>
         </>

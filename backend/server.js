@@ -6,6 +6,8 @@ import Signuprouter from "./routes/signup.router.js"
 import loginRouter from "./routes/login.router.js"
 import drawingRouter from "./routes/drawing.router.js"
 import cloudinary from "./config/cloudinary.config.js"
+import profileRouter from "./routes/profile.router.js"
+import Dashboardrouter from "./routes/dashboard.router.js"
 
 dotenv.config()
 
@@ -21,7 +23,9 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", Signuprouter)
 app.use("/api/auth", loginRouter)
-app.use("/api/save", drawingRouter)
+app.use("/api", drawingRouter)
+app.use("/api", profileRouter)
+app.use("/api", Dashboardrouter)
 
 
 connectDB().then(() => {

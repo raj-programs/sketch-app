@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useColor } from "react-color-palette";
 import "react-color-palette/css";
-
 import { drawShape } from "../utils/drawingUtil/drawUtils";
 import detectShape from "../utils/detectionUtils/detectionUtils";
+import api from "../../services/baseapi";
+import { handleError, handleSucess } from "../utils/responseHandler";
+import toast from "react-hot-toast";
+
 
 export function useCanvas() {
 
@@ -19,6 +22,8 @@ export function useCanvas() {
     const [drawing, setDrawing] = useState(false);
     const [colorPicker, setColorPicker] = useState(false);
     const [color, setColor] = useColor("black");
+
+    const [showLogin, setShowlogin] = useState(false)
 
     const redrawCanvas = () => {
         const canvas = canvasref.current;
@@ -129,7 +134,8 @@ export function useCanvas() {
         redrawCanvas();
     };
 
-    const handleDownload = (filename = `drawing_${Date.now()}`) => {
+    const handleDownload = (filename) => {
+        const fileName = filename;
         const canvas = canvasref.current;
         if (!canvas) return;
 
@@ -147,7 +153,7 @@ export function useCanvas() {
         const url = tempCanvas.toDataURL("image/png", 1.0);
 
         const link = document.createElement("a");
-        link.download = `${filename}.png`;
+        link.download = `${fileName}.png`;
         link.href = url;
         link.click();
 
@@ -173,7 +179,49 @@ export function useCanvas() {
     };
 
     const newFile = () => {
+        const confirmNew = window.confirm(
+            "Create a new file? Unsaved changes will be lost."
+        )
 
+        if (!confirmNew) return;
+
+        handleDelete();
+
+    }
+
+    const handleSave = async (e) => {
+        e.preventDefault();
+        try {
+            const token = localStorage.getItem("token")
+            const image = canvasref.current.toDataURL("image/png")
+
+            if (!token) {
+                setShowlogin(true);
+                return;
+            }
+            const response = await api.post(
+                "/api/save",
+                {
+                    name,
+                    drawingData: shapeRef.current,
+                    image
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            )
+
+            const result = handleSucess(response)
+
+            toast.success(result.message)
+
+        } catch (err) {
+            const error = handleError(err)
+            toast.error(error.message)
+
+        }
     }
 
     return {
@@ -188,6 +236,10 @@ export function useCanvas() {
         handleColorPicker,
         colorPicker,
         color,
-        setColor
+        setColor,
+        newFile,
+        handleSave,
+        showLogin,
+        setShowlogin
     };
 }

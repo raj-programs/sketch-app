@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import user from "./user.model.js";
 
 const drawingSchema = mongoose.Schema({
     userId: {
@@ -7,11 +6,24 @@ const drawingSchema = mongoose.Schema({
         ref: "User",
         required: true
     },
-    name: String,
-    shapes: Array,
-    imageurl: String,
-    thumnail: String
-}, { timestamps: true });
+    name: {
+        type: String,
+        default: "Untitled_Drawing",
+        trim: true
+    },
+    drawingData: {
+        type: mongoose.Schema.Types.Mixed,
+        required: true
+    },
+    imageUrl: {
+        type: String,
+    },
+    thumbnailUrl: {
+        type: String,
+    },
+}, { 
+    timestamps: true 
+});
 
 const drawings = mongoose.model("Drawing", drawingSchema);
 

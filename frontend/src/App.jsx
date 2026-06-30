@@ -3,6 +3,8 @@ import DrawCanvas from './components/canvas'
 import Login from './pages/loginpage'
 import { Routes, Route } from "react-router-dom"
 import SignUp from './pages/signuppage'
+import Profile from './pages/profile'
+import Dashboard from './pages/dashboard'
 
 function App() {
   
@@ -12,6 +14,8 @@ function App() {
      <Route path='/' element={<DrawCanvas />}/>
      <Route path='/login' element={<Login />}/>
      <Route path='/signup' element={<SignUp />} />
+     <Route path='/profile' element={<Profile />}/>
+     <Route path='/dashboard' element={<Dashboard />}/>
      </Routes>
     </>
   )

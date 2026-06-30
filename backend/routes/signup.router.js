@@ -11,13 +11,13 @@ Signuprouter.post("/signup", async (req, res, next) => {
     const { name, userName, email, password } = req.body;
 
     const existingEmail = await user.findOne({ email });
-
+    
     if (existingEmail) {
       throw new AppError("This Email Already Exists!", 400)
     }
 
     const existingUser = await user.findOne({ userName });
-
+    
     if (existingUser) {
       throw new AppError("This Username already exists Exists!", 400)
     }

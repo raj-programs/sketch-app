@@ -2,13 +2,15 @@ import { useState } from "react"
 import api from "../../services/baseapi.js"
 import toast from "react-hot-toast"
 import { handleError, handleSucess } from "../utils/responseHandler.js"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 function SignUp() {
     const [name, setName] = useState("")
-    const [username, setUsername] = useState("")
+    const [userName, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    const navigate = useNavigate()
 
     const handleSignin = async (e) => {
         e.preventDefault();
@@ -17,7 +19,7 @@ function SignUp() {
 
         const response = await api.post("/api/auth/signup", {
             name,
-            username,
+            userName,
             email,
             password,
         })
@@ -30,6 +32,8 @@ function SignUp() {
         setUsername("")
         setEmail("")
         setPassword("")
+
+        navigate("/login")
 
     }
 
@@ -58,7 +62,7 @@ function SignUp() {
                 Username
             </h4>
             <input type="text"
-            value={username}
+            value={userName}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Enter Your Username" 
             required/>

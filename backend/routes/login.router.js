@@ -1,12 +1,9 @@
 import express from "express"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import dotenv from "dotenv"
 import user from "../models/user.model.js";
 import AppError from "../utils/appError.js";
 import successResponse from "../utils/successResponse.js";
-
-dotenv.config();
 
 const loginRouter = express.Router();
 
