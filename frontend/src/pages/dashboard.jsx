@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import api from "../../services/baseapi"
+import api from "../../services/baseapi.js"
 
 function Dashboard() {
     const [getData, setGetdata] = useState([])
@@ -13,22 +13,27 @@ function Dashboard() {
                         Authorization: `Bearer ${token}`
                     }
                 })
-                setGetdata(drawings)
-
+                setGetdata(drawings.data.data)
             } catch (error) {
                 console.log(error)
             }
         }
         
             fetchDrawings()
-    })
+    }, [])
     return (
         <>
-        <div>
-            <h1>{getData.name}</h1>
-            <p>{getData.createdAt}</p>
-            <img src={getData.drawing} alt="Drawing" />
-        </div>
+        {
+            getData.map((drawing, index) => {
+                return(
+                <div key={index}>
+                    <h1>{drawing.name}</h1>
+            <p>{drawing.createdAt}</p>
+            <img src={drawing.imageUrl} alt="Drawing" />
+                </div>
+                )
+            }) 
+        }
         </>
     )
 }

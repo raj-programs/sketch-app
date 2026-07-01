@@ -178,19 +178,7 @@ export function useCanvas() {
         setColorPicker(prev => !prev);
     };
 
-    const newFile = () => {
-        const confirmNew = window.confirm(
-            "Create a new file? Unsaved changes will be lost."
-        )
-
-        if (!confirmNew) return;
-
-        handleDelete();
-
-    }
-
-    const handleSave = async (e) => {
-        e.preventDefault();
+    const handleSave = async (name) => {
         try {
             const token = localStorage.getItem("token")
             const image = canvasref.current.toDataURL("image/png")
@@ -214,7 +202,7 @@ export function useCanvas() {
             )
 
             const result = handleSucess(response)
-
+            
             toast.success(result.message)
 
         } catch (err) {
@@ -237,9 +225,8 @@ export function useCanvas() {
         colorPicker,
         color,
         setColor,
-        newFile,
         handleSave,
         showLogin,
-        setShowlogin
+        setShowlogin,
     };
 }

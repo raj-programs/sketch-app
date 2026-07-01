@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react"
 import api from "../../services/baseapi.js"
 import { handleError } from "../utils/responseHandler.js"
+import { useNavigate } from "react-router-dom"
+import { CiLogout } from "react-icons/ci"
 
 function Profile() {
+    const navigate = useNavigate()
 
     const [getUser, setGetuser] = useState("")
 
@@ -29,6 +32,10 @@ function Profile() {
 
       if(!getUser) return <p>Loacding...</p> 
 
+      const handleLogout = () => {
+        localStorage.removeItem("token")
+        navigate("/")
+      }
     return(
         <>
         <div>
@@ -36,6 +43,12 @@ function Profile() {
             <p>{getUser.email}</p>
             <p>{getUser.userName}</p>
         </div>
+        <button 
+        className="logout" 
+        onClick={handleLogout}
+        >
+            <CiLogout /> Logout
+        </button>
         </>
     )
 }

@@ -8,6 +8,7 @@ import Toolbar from "./toolbar";
 import pen from "../assets/pen.png"
 import Navbar from "./navbar";
 import Login from "../pages/loginpage"
+import DialogBox from "./savebox";
 function DrawCanvas(){
 
     const {
@@ -23,7 +24,6 @@ function DrawCanvas(){
         color,
         setColor,
         handleDelete,
-        newFile,
         handleSave,
         showLogin,
         setShowlogin,
@@ -45,11 +45,10 @@ function DrawCanvas(){
                 <Toolbar 
                 onUndo={handleUndo} 
                 onRedo={handleRedo}
-                onSave={handleDownload}
+                onDownload={handleDownload}
                 setTool={setTool}
                 onColor={handleColorPicker}
                 onDelete={handleDelete}
-                onNew={newFile}
                 onSave={handleSave}
                 />
                 
