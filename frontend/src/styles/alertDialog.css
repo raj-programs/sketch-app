@@ -1,0 +1,180 @@
+/* Overlay */
+
+.alert-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.2s ease;
+    z-index: 1000;
+}
+
+/* Dialog */
+
+.alert-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(420px, 90vw);
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    animation: scaleIn 0.2s ease;
+    z-index: 1001;
+    outline: none;
+}
+
+/* Title */
+
+.alert-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+/* Description */
+
+.alert-description {
+    margin-top: 14px;
+    color: #6b7280;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Buttons */
+
+.alert-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+/* Cancel */
+
+.cancel-btn {
+    padding: 10px 22px;
+    border: 1px solid #d1d5db;
+    background: #ffffff;
+    color: #374151;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.cancel-btn:hover {
+    background: #f3f4f6;
+}
+
+/* Confirm */
+
+.confirm-btn {
+    padding: 10px 22px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.confirm-btn:hover {
+    background: #1d4ed8;
+}
+
+/* Trigger Button */
+
+.tool-buttons {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border: none;
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    transition: all .25s ease;
+}
+
+.tool-buttons:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+}
+
+.tool-buttons svg {
+    font-size: 1.3rem;
+}
+
+/* Tooltip */
+
+.tool-buttons::after {
+    content: attr(data-name);
+    position: absolute;
+    bottom: -36px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111827;
+    color: white;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: .2s;
+    white-space: nowrap;
+}
+
+.tool-buttons:hover::after {
+    opacity: 1;
+}
+
+/* Animations */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -48%) scale(.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 480px) {
+    .alert-content {
+        width: 95vw;
+        padding: 22px;
+    }
+
+    .alert-buttons {
+        flex-direction: column;
+    }
+
+    .cancel-btn,
+    .confirm-btn {
+        width: 100%;
+    }
+}

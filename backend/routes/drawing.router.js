@@ -25,12 +25,20 @@ drawingRouter.post("/save",authMiddleware, async (req, res) => {
     publicID = upload.public_id;
     }
 
+    const thumbnailUrl = cloudinary.url(upload.public_id, {
+        width: 300,
+        height: 200,
+        crop: "fill",
+        quality: "auto",
+        fetch_format: "auto",
+    })
+
     const drawing = await drawings.create({
         userId: req.userId,
         name,
         drawingData,
         imageUrl,
-        thumbnailUrl: publicID,
+        thumbnailUrl
     }
     );
 

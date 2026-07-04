@@ -16,7 +16,6 @@ function Toolbar({ onUndo, onRedo, onDownload, onColor, onDelete, onSave }) {
             </button>
             <button className="tool-buttons" data-name="DOWNLOAD" onClick={onDownload}><FaDownload /> </button>
             <Deletefile onDelete={onDelete} />
-            <button className="tool-buttons" data-name="LIGHT/DARK MODE"><MdBrightness7 /></button>
         </>
     )
 }

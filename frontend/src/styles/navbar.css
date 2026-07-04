@@ -1,0 +1,174 @@
+.navbar {
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 24px;
+
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-bottom: 1px solid var(--border);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+[data-theme="dark"] .navbar {
+    background: rgba(28, 28, 28, 0.85);
+}
+
+/* Left Side */
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.logo {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: .5px;
+}
+
+/* Navigation */
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text);
+
+    padding: 10px 16px;
+
+    border-radius: 10px;
+
+    font-size: .95rem;
+    font-weight: 500;
+
+    transition: .25s ease;
+}
+
+.nav-links a:hover {
+    background: var(--surface-2);
+}
+
+/* Right Side */
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Profile */
+
+.profile-btn {
+    width: 42px;
+    height: 42px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: var(--surface-2);
+    color: var(--text);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    transition: .25s ease;
+}
+
+.profile-btn:hover {
+    transform: translateY(-2px);
+    background: var(--border);
+}
+
+/* Theme Button */
+
+.theme-toggle {
+    position: relative;
+
+    width: 42px;
+    height: 42px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: var(--surface-2);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    transition: .3s ease;
+}
+
+.theme-toggle:hover {
+    transform: rotate(15deg);
+    background: var(--border);
+}
+
+.theme-toggle svg {
+    position: absolute;
+
+    width: 20px;
+    height: 20px;
+
+    transition:
+        transform .35s ease,
+        opacity .35s ease;
+}
+
+.sun {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+}
+
+.moon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0);
+}
+
+.hidden {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0);
+}
+
+.sun:not(.hidden),
+.moon:not(.hidden) {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+/* Mobile */
+
+@media (max-width:768px){
+
+    .navbar{
+        padding:0 16px;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+}

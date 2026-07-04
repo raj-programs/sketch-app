@@ -1,6 +1,8 @@
 import * as Dialog from "@radix-ui/react-dialog"
 import { useState } from "react";
 import { IoSave } from "react-icons/io5"
+import "../styles/dialog.css"
+
 function DialogBox ({ onSave }){
     const [name, setName] = useState("untitled")
     return(

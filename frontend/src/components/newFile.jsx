@@ -1,8 +1,8 @@
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { VscNewFile } from "react-icons/vsc";
+import "../styles/alertDialog.css";
 
 function NewFile({ onDelete }) {
-
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
@@ -15,15 +15,17 @@ function NewFile({ onDelete }) {
         <AlertDialog.Overlay className="alert-overlay" />
 
         <AlertDialog.Content className="alert-content">
-          <AlertDialog.Title>
+
+          <AlertDialog.Title className="alert-title">
             Create New File?
           </AlertDialog.Title>
 
-          <AlertDialog.Description>
-            Unsaved changes will be lost.
+          <AlertDialog.Description className="alert-description">
+            Unsaved changes will be lost. This action cannot be undone.
           </AlertDialog.Description>
 
           <div className="alert-buttons">
+
             <AlertDialog.Cancel asChild>
               <button className="cancel-btn">
                 Cancel
@@ -33,12 +35,14 @@ function NewFile({ onDelete }) {
             <AlertDialog.Action asChild>
               <button
                 className="confirm-btn"
-                onClick={() => onDelete()}
+                onClick={onDelete}
               >
                 Create New
               </button>
             </AlertDialog.Action>
+
           </div>
+
         </AlertDialog.Content>
       </AlertDialog.Portal>
     </AlertDialog.Root>
