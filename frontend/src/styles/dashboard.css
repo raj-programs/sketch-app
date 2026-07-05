@@ -1,211 +1,383 @@
-.dashboard{
+/* ========================= */
+/* Dashboard */
+/* ========================= */
 
-    padding:40px;
-
-    background:var(--bg);
-
-    min-height:100vh;
+.dashboard {
+    min-height: 100vh;
+    background: #171412;
+    padding: 40px;
 }
 
-.dashboard-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:36px;
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
-.dashboard-title{
-
-    font-size:2rem;
-
-    font-weight:700;
-
-    color:var(--text);
+.dashboard-header h1 {
+    color: #F8F5F2;
+    font-size: clamp(2rem, 3vw, 2.7rem);
+    font-weight: 700;
 }
 
-.dashboard-subtitle{
-
-    color:#888;
-
-    margin-top:8px;
+.dashboard-header p {
+    color: #A89E95;
 }
 
-.dashboard-grid{
+/* ========================= */
+/* Grid */
+/* ========================= */
 
-    display:grid;
-
-    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
-
-    gap:28px;
+.drawing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
 }
 
-.sketch-card{
+/* ========================= */
+/* Card */
+/* ========================= */
 
-    background:var(--surface);
-
-    border:1px solid var(--border);
-
-    border-radius:18px;
-
-    overflow:hidden;
-
-    transition:.3s;
-
-    box-shadow:0 5px 20px rgba(0,0,0,.05);
-
-    cursor:pointer;
+.drawing-card {
+    background: #211D19;
+    border: 1px solid #3C342D;
+    border-radius: 18px;
+    overflow: hidden;
+    transition: .3s ease;
 }
 
-.sketch-card:hover{
-
-    transform:translateY(-6px);
-
-    box-shadow:0 18px 40px rgba(0,0,0,.12);
-
+.drawing-card:hover {
+    transform: translateY(-8px);
+    border-color: #D97706;
+    box-shadow: 0 18px 40px rgba(217,119,6,.18);
 }
 
-.sketch-image{
+.drawing-preview {
+    height: 220px;
+    background: #181512;
 
-    width:100%;
-
-    height:220px;
-
-    object-fit:cover;
-
-    background:var(--surface-2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.sketch-body{
-
-    padding:18px;
+.drawing-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: .35s ease;
 }
 
-.sketch-title{
-
-    font-size:1.1rem;
-
-    font-weight:700;
-
-    color:var(--text);
-
-    margin-bottom:10px;
+.drawing-card:hover img {
+    transform: scale(1.04);
 }
 
-.sketch-date{
+/* ========================= */
+/* Info */
+/* ========================= */
 
-    color:#888;
-
-    font-size:.9rem;
-
-    margin-bottom:18px;
+.drawing-info {
+    padding: 18px;
 }
 
-.sketch-actions{
-
-    display:flex;
-
-    gap:12px;
+.drawing-info h3 {
+    color: #F8F5F2;
+    font-size: 1.05rem;
+    margin-bottom: 8px;
 }
 
-.card-btn{
-
-    flex:1;
-
-    border:none;
-
-    border-radius:10px;
-
-    padding:10px;
-
-    cursor:pointer;
-
-    font-weight:600;
-
-    transition:.25s;
+.drawing-info span {
+    color: #A89E95;
+    font-size: .9rem;
 }
 
-.open-btn{
+/* ========================= */
+/* Actions */
+/* ========================= */
 
-    background:#4f8cff;
-
-    color:white;
+.drawing-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 0 18px 18px;
 }
 
-.open-btn:hover{
+.drawing-actions button {
+    width: 42px;
+    height: 42px;
 
-    background:#3977f5;
+    border: none;
+    border-radius: 12px;
+
+    background: #2B2521;
+    color: #F8F5F2;
+
+    cursor: pointer;
+
+    transition: .25s;
 }
 
-.delete-btn{
-
-    background:#ef4444;
-
-    color:white;
+.drawing-actions button:hover {
+    background: var(--hover-accent);
+    transform: translateY(-2px);
 }
 
-.delete-btn:hover{
-
-    background:#dc2626;
+.delete-btn:hover {
+    background: #B91C1C !important;
 }
 
-.empty-dashboard{
+/* ========================= */
+/* Overlay */
+/* ========================= */
 
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:80px 20px;
-
-    color:#888;
-
-    text-align:center;
+.dialog-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.72);
+    backdrop-filter: blur(6px);
+    z-index: 999;
 }
 
-.empty-dashboard svg{
+/* ========================= */
+/* Dialog */
+/* ========================= */
 
-    font-size:4rem;
+.preview-dialog {
+    position: fixed;
 
-    margin-bottom:20px;
+    top: 50%;
+    left: 50%;
 
-    opacity:.5;
+    transform: translate(-50%, -50%);
+
+    width: min(900px, 92vw);
+    max-height: 92vh;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    background: #211D19;
+
+    border: 1px solid #3C342D;
+
+    box-shadow: 0 25px 70px rgba(0,0,0,.45);
+
+    z-index: 1000;
 }
 
-@media(max-width:768px){
+/* ========================= */
+/* Header */
+/* ========================= */
 
-.dashboard{
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-padding:20px;
+    padding: 20px 24px;
 
+    border-bottom: 1px solid #3C342D;
 }
 
-.dashboard-header{
-
-flex-direction:column;
-
-align-items:flex-start;
-
-gap:18px;
-
+.preview-title {
+    color: #F8F5F2;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
-.dashboard-grid{
+.close-btn {
+    width: 42px;
+    height: 42px;
 
-grid-template-columns:1fr;
+    border: none;
+    border-radius: 10px;
 
+    background: #2B2521;
+    color: white;
+
+    cursor: pointer;
+
+    transition: .25s;
 }
 
-.sketch-image{
-
-height:180px;
-
+.close-btn:hover {
+    background: var(--danger-hover);
 }
 
+/* ============================= */
+/* Preview Body */
+/* ============================= */
+
+.preview-body {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 28px;
+
+    background: #ffffff;
+}
+
+/* ============================= */
+/* Preview Image */
+/* ============================= */
+
+.preview-image {
+    max-width: 100%;
+    max-height: 70vh;
+
+    object-fit: contain;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.18);
+}
+/* ========================= */
+/* Footer */
+/* ========================= */
+
+.preview-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 24px;
+
+    border-top: 1px solid #3C342D;
+}
+
+.preview-footer span {
+    color: #A89E95;
+}
+
+.download-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 18px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: var(--accent);
+    color: white;
+
+    font-size: .95rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .25s;
+}
+
+.download-btn:hover {
+    background: var(--hover-accent);
+    transform: translateY(-2px);
+}
+
+/* ========================= */
+/* Thumbnail */
+/* ========================= */
+
+.drawing-preview {
+    width: 100%;
+    height: 220px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 16px;
+
+    background: #F7F4EF; /* warm off-white */
+
+    border-bottom: 1px solid #3C342D;
+
+    overflow: hidden;
+}
+
+.drawing-preview img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    border-radius: 10px;
+
+    background: #FFFFFF;
+
+    transition: transform .35s ease;
+}
+
+.drawing-card:hover .drawing-preview img {
+    transform: scale(1.04);
+}
+
+/* ========================= */
+/* Tablet */
+/* ========================= */
+
+@media (max-width: 900px) {
+
+    .dashboard {
+        padding: 28px;
+    }
+
+    .drawing-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .preview-dialog {
+        width: 94vw;
+    }
+}
+
+/* ========================= */
+/* Mobile */
+/* ========================= */
+
+@media (max-width: 600px) {
+
+    .dashboard {
+        padding: 18px;
+    }
+
+    .dashboard-header {
+        align-items: flex-start;
+    }
+
+    .drawing-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .drawing-preview {
+        height: 190px;
+    }
+
+    .preview-body {
+        padding: 16px;
+    }
+
+    .preview-footer {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .download-btn {
+        width: 100%;
+        justify-content: center;
+    }
 }

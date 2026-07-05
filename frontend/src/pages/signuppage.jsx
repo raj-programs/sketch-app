@@ -1,100 +1,149 @@
-import { useState } from "react"
-import api from "../../services/baseapi.js"
-import toast from "react-hot-toast"
-import { handleError, handleSucess } from "../utils/responseHandler.js"
-import { Link, useNavigate } from "react-router-dom"
+import * as Dialog from "@radix-ui/react-dialog";
+import { useState } from "react";
+import api from "../../services/baseapi.js";
+import toast from "react-hot-toast";
+import { handleError, handleSucess } from "../utils/responseHandler.js";
 
-function SignUp() {
-    const [name, setName] = useState("")
-    const [userName, setUsername] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-
-    const navigate = useNavigate()
+function SignUp({ open, onOpenChange, onLoginClick }) {
+    const [name, setName] = useState("");
+    const [userName, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const handleSignin = async (e) => {
         e.preventDefault();
 
-        try{
+        try {
+            const response = await api.post("/api/auth/signup", {
+                name,
+                userName,
+                email,
+                password,
+            });
 
-        const response = await api.post("/api/auth/signup", {
-            name,
-            userName,
-            email,
-            password,
-        })
+            const result = handleSucess(response);
 
-        const result = handleSucess(response)
+            toast.success(result.message);
 
-        toast.success(result.data.message)
+            setName("");
+            setUsername("");
+            setEmail("");
+            setPassword("");
 
-        setName("")
-        setUsername("")
-        setEmail("")
-        setPassword("")
+            onOpenChange(false);
 
-        navigate("/login")
+        } catch (error) {
+            const err = handleError(error);
+            toast.error(err.message);
+        }
+    };
 
-    }
+    return (
+        <Dialog.Root
+            open={open}
+            onOpenChange={onOpenChange}
+        >
+            <Dialog.Portal>
 
-    catch (error) {
-        const err = handleError(error)
-        toast.error(
-            err.message
-        )
-    }
+                <Dialog.Overlay className="dialog-overlay" />
 
+                <Dialog.Content className="dialog-content">
 
-    }
-    return(
-        <>
-        <form action="" onSubmit={handleSignin}>
-            <h4>
-                Name
-            </h4>
-            <input type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter Your Name" 
-            required/>
+                    <Dialog.Title className="dialog-title">
+                        Create Account
+                    </Dialog.Title>
 
-             <h4>
-                Username
-            </h4>
-            <input type="text"
-            value={userName}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter Your Username" 
-            required/>
+                    <Dialog.Description className="dialog-description">
+                        Create an account to save and manage your drawings.
+                    </Dialog.Description>
 
-             <h4>
-                Email
-            </h4>
-            <input type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter Your Email" 
-            required/>
+                    <form onSubmit={handleSignin}>
 
-             <h4>
-                Password
-            </h4>
-            <input type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter Your Password" 
-            required/>
+                        <input
+                            className="dialog-input"
+                            type="text"
+                            placeholder="Full Name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                        />
 
-             <p className="section-text">
-            Already Have an Account? {" "}
-            <Link to="/login">Login</Link>
-            here!! 
-            </p>
+                        <input
+                            className="dialog-input"
+                            type="text"
+                            placeholder="Username"
+                            value={userName}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                            style={{ marginTop: "14px" }}
+                        />
 
-            <button type="submit">Sign In</button>
-        </form>
-        </>
-    )
+                        <input
+                            className="dialog-input"
+                            type="email"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            style={{ marginTop: "14px" }}
+                        />
+
+                        <input
+                            className="dialog-input"
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            style={{ marginTop: "14px" }}
+                        />
+
+                        <p
+                            className="dialog-description"
+                            style={{ marginTop: "16px" }}
+                        >
+                            Already have an account?{" "}
+
+                            <button
+                                type="button"
+                                className="dialog-link"
+                                onClick={() => {
+                                    onOpenChange(false);
+                                    onLoginClick();
+                                }}
+                            >
+                                Login
+                            </button>
+                        </p>
+
+                        <div
+                            className="dialog-buttons"
+                            style={{ marginTop: "22px" }}
+                        >
+                            <Dialog.Close asChild>
+                                <button
+                                    type="button"
+                                    className="dialog-cancel"
+                                >
+                                    Cancel
+                                </button>
+                            </Dialog.Close>
+
+                            <button
+                                type="submit"
+                                className="dialog-save"
+                            >
+                                Create Account
+                            </button>
+                        </div>
+
+                    </form>
+
+                </Dialog.Content>
+
+            </Dialog.Portal>
+        </Dialog.Root>
+    );
 }
 
-export default SignUp
+export default SignUp;

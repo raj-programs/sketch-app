@@ -21,6 +21,9 @@ const drawingSchema = mongoose.Schema({
     thumbnailUrl: {
         type: String,
     },
+    publicId: {
+        type: String
+    }
 }, { 
     timestamps: true 
 });

@@ -3,19 +3,18 @@ import { Sun, Moon} from "lucide-react"
 import "../styles/navbar.css"
 import * as Dialog from "@radix-ui/react-dialog"
 import Profile from "../pages/profile.jsx"
+import logo from "../assets/logo.png"
 function Navbar({ toggleTheme, darkMode }) {
     return (
         <>
-        <nav className="navbar">
-
+        <nav className="navbar"> 
     <div className="nav-left">
-
-        <Link className="logo" to="/">
-            Sketch
+        <Link to="/">
+            <img src={logo} alt="sketch2shape" className="logo"/>
         </Link>
-
+        
         <div className="nav-links">
-            <Link to="/">Canvas</Link>
+            <Link to="/">My Canvas</Link>
             <Link to="/dashboard">My Sketches</Link>
         </div>
 

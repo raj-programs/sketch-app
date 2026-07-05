@@ -9,7 +9,7 @@ const Dashboardrouter = express.Router()
 
 Dashboardrouter.get("/dashboard", authMiddleware, async (req, res) => {
     try {
-        const data = await Drawing.find({ userId: req.userId }).select("name thumbnailUrl createdAt");
+        const data = await Drawing.find({ userId: req.userId }).select("name thumbnailUrl imageUrl createdAt");
         successResponse(
             res, 
             200,

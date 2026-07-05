@@ -28,14 +28,14 @@
     display: flex;
     align-items: center;
     gap: 28px;
+    margin-top: 5px;
 }
 
-.logo {
-    font-size: 1.35rem;
-    font-weight: 700;
-    color: var(--text);
-    text-decoration: none;
-    letter-spacing: .5px;
+.logo{
+    width: 60px;
+    height: auto;
+    margin: 5px;
+    padding: 5px;
 }
 
 /* Navigation */
@@ -165,10 +165,6 @@
 
     .navbar{
         padding:0 16px;
-    }
-
-    .nav-links{
-        display:none;
     }
 
 }

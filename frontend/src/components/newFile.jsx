@@ -6,7 +6,7 @@ function NewFile({ onDelete }) {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
-        <button className="tool-buttons" data-name="NEW">
+        <button className="tool-buttons" data-name="New File">
           <VscNewFile />
         </button>
       </AlertDialog.Trigger>

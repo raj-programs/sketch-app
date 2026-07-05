@@ -1,33 +1,23 @@
 import { useEffect, useState } from "react";
 import api from "../../services/baseapi.js";
 import { handleError } from "../utils/responseHandler.js";
-import { useNavigate } from "react-router-dom";
 import { CiLogout } from "react-icons/ci";
 import { FaRegUser } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import * as Dialog from "@radix-ui/react-dialog";
 import "../styles/profile.css";
+import toast from "react-hot-toast";
 
 function Profile() {
-    const navigate = useNavigate();
 
     const [getUser, setGetuser] = useState(null);
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const token = localStorage.getItem("token");
 
-                const response = await api.get("/api/me", {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                console.log(response.data.data);
-                
+                const response = await api.get("/api/me");
                 setGetuser(response.data.data);
-
-                console.log(response.data.data)
             } catch (error) {
                 console.log(error)
                 handleError(error);
@@ -39,7 +29,7 @@ function Profile() {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        navigate("/");
+        toast.success("Logged Out Successfully!!")
     };
 
     return (
@@ -104,6 +94,7 @@ function Profile() {
                                 </div>
 
                             </div>
+                            <Dialog.Close asChild>
 
                             <button
                                 className="logout"
@@ -112,6 +103,7 @@ function Profile() {
                                 <CiLogout />
                                 Logout
                             </button>
+                            </Dialog.Close>
                         </>
                     )}
 

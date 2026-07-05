@@ -5,9 +5,10 @@ import "react-color-palette/css";
 import "../styles/canvas.css";
 import Toolbar from "./toolbar";
 import Navbar from "./navbar";
-import Login from "../pages/loginpage"
 import DialogBox from "./savebox";
 import { useState } from "react";
+import LoginDialog from "../pages/loginpage";
+import SignUp from "../pages/signuppage";
 function DrawCanvas(){
 
     const {
@@ -29,6 +30,21 @@ function DrawCanvas(){
     } = useCanvas();
 
     const [darkMode, setDarkmode] = useState(false);
+    const [showSignup, setShowsignup] = useState(false)
+
+useEffect(() => {
+
+    const handleAuthExpired = () => {
+        setShowlogin(true);
+    };
+
+    window.addEventListener("auth-expired", handleAuthExpired);
+
+    return () => {
+        window.removeEventListener("auth-expired", handleAuthExpired);
+    };
+
+}, [setShowlogin]);
 
     const toggleTheme = () => {
         setDarkmode(prev => !prev)
@@ -77,13 +93,25 @@ function DrawCanvas(){
 
         {
             showLogin && (
-                <Login 
-                onSuccess={
-                    () => setShowlogin(false)
-                }
-                />
+               <LoginDialog
+    open={showLogin}
+    onOpenChange={setShowlogin}
+    onSignupClick={() => {
+        setShowlogin(false);
+        setShowsignup(true);
+    }}
+/>
             )
         }
+
+        <SignUp
+    open={showSignup}
+    onOpenChange={setShowsignup}
+    onLoginClick={() => {
+        setShowsignup(false);
+        setShowlogin(true);
+    }}
+/>
         </div>
         </div>
         </>

@@ -12,7 +12,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: min(420px, 90vw);
-    background: #ffffff;
+    background: var(--bg);
     border-radius: 18px;
     padding: 2rem;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
@@ -27,7 +27,8 @@
     width: 38px;
     height: 38px;
     border: none;
-    background: #f2f2f2;
+    background: var(--surface-2);
+    color: var(--text);
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -36,9 +37,7 @@
     transition: .25s;
 }
 
-.close-profile:hover {
-    background: #e4e4e4;
-}
+
 
 .close-profile svg {
     font-size: 1.2rem;
@@ -69,11 +68,11 @@
     font-size: 1.5rem;
     font-weight: 700;
     margin: 0;
-    color: #222;
+    color: var(--text);
 }
 
 .profile-email {
-    color: #666;
+    color: var(--text);
     margin-top: .4rem;
     word-break: break-word;
 }
@@ -86,21 +85,21 @@
 }
 
 .profile-item {
-    background: #f7f7f7;
+    background: var(--surface-2);
     padding: 1rem;
     border-radius: 12px;
 }
 
 .profile-label {
     font-size: .8rem;
-    color: #777;
+    color: var(--text-secondary);
     margin-bottom: .4rem;
 }
 
 .profile-value {
     font-size: 1rem;
     font-weight: 600;
-    color: #222;
+    color: var(--text);
     word-break: break-word;
 }
 
@@ -109,8 +108,8 @@
     padding: .9rem;
     border: none;
     border-radius: 12px;
-    background: #dc2626;
-    color: white;
+    background: var(--danger);
+    color: var(--button-danger-text);
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -122,14 +121,14 @@
 }
 
 .logout:hover {
-    background: #b91c1c;
+    background: var(--danger-hover);
 }
 
 .profile-loading {
     text-align: center;
-    padding: 3rem 1rem;
+    padding: 2rem 1.5rem;
     font-size: 1.1rem;
-    color: #555;
+    color: var(--text-secondary);
 }
 
 .profile-btn {
@@ -137,7 +136,7 @@
     height: 45px;
     border: none;
     border-radius: 50%;
-    background: #ffffff;
+    background: var(--button-bg);
     cursor: pointer;
     display: flex;
     align-items: center;

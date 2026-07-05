@@ -6,7 +6,7 @@ function DeleteFile({ onDelete }) {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
-        <button className="tool-buttons" data-name="DELETE">
+        <button className="tool-buttons" data-name="Delete">
           <MdDelete />
         </button>
       </AlertDialog.Trigger>
