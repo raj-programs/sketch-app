@@ -287,15 +287,6 @@ http://localhost:5173
 
 ---
 
-# Performance
-
-- Optimized image loading
-- Thumbnail previews
-- Lazy rendering
-- Responsive UI
-- Efficient canvas updates
-
----
 
 # Contributing
 
