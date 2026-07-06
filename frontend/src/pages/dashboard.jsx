@@ -13,9 +13,7 @@ function Dashboard() {
     useEffect(() => {
         const fetchDrawings = async () => {
             try {
-
                 const drawings = await api.get("/api/dashboard");
-
                 setGetdata(drawings.data.data);
             } catch (error) {
                 console.log(error);
@@ -35,10 +33,7 @@ function Dashboard() {
             toast.success("Deleted SuccessFully!!")
 
         } catch (error) {
-            console.error(error)
-
             toast.error(error.message)
-            
         }
     }
 

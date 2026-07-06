@@ -54,5 +54,32 @@ drawingRouter.post("/save",authMiddleware, async (req, res) => {
    }
 })
 
+drawingRouter.delete("/delete/:id", authMiddleware, async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        const drawing = await drawings.findOne({
+            _id: id,
+            userId: req.userId,
+        });
+
+        if (!drawing) {
+            throw new AppError("Drawing not found!", 404);
+        }
+
+        if (drawing.publicId) {
+            await cloudinary.uploader.destroy(drawing.publicId);
+        }
+
+        await drawings.findByIdAndDelete(id);
+
+        successResponse(res, 
+            200, 
+           "Drawing deleted successfully!");
+    } catch (error) {
+        next(error);
+    }
+});
+
 export default drawingRouter;
 
