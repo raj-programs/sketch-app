@@ -21,6 +21,7 @@ function Profile() {
             } catch (error) {
                 console.log(error)
                 handleError(error);
+                toast.error(error.response?.data?.message || "Unable to load your profile. Please try again.");
             }
         };
 

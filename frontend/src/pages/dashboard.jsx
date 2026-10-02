@@ -17,6 +17,7 @@ function Dashboard() {
                 setGetdata(drawings.data.data);
             } catch (error) {
                 console.log(error);
+                toast.error(error.response?.data?.message || "Unable to load your drawings. Please try again.");
             }
         };
 
@@ -33,7 +34,7 @@ function Dashboard() {
             toast.success("Deleted SuccessFully!!")
 
         } catch (error) {
-            toast.error(error.message)
+            toast.error(error.response?.data?.message || "Unable to delete the drawing. Please try again.")
         }
     }
 
@@ -55,7 +56,7 @@ function Dashboard() {
         URL.revokeObjectURL(url);
     } catch (err) {
         console.error(err);
-        toast.error("Failed to download image");
+        toast.error("Unable to download the image. Please try again.");
     }
 };
     return (
